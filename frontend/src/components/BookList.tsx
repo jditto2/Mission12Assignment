@@ -20,10 +20,9 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         .join("&");
 
         const response = await fetch(
-          `https://ambitious-wave-035cc7a1e.6.azurestaticapps.net/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${
-            selectedCategories.length ? `&${categoryParams}` : ""
-          }`
+          `https://ambitious-wave-035cc7a1e.6.azurestaticapps.net/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${selectedCategories.length ? `&${categoryParams}` : ""}`
         );
+        
         
 
       if (!response.ok) {
@@ -32,6 +31,8 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
       }
 
       const data = await response.json();
+      console.log("Fetched books data:", data);  // Log the data for debugging
+
 
       if (Array.isArray(data.books) && typeof data.totalNumBooks === "number") {
         setBooks(data.books);

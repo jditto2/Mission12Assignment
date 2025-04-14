@@ -19,7 +19,7 @@ function CategoryFilter ({
 
             const response = await fetch(
                 `https://ambitious-wave-035cc7a1e.6.azurestaticapps.net/api/Books/GetBookCategories`
-              );
+              );              
               
 
 
