@@ -14,10 +14,9 @@ const AdminBooksPage = () => {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [isDeleting, setIsDeleting] = useState(false); // Manage the modal visibility
 
-  // Fetch all books without pagination
   const fetchAllBooks = async () => {
     try {
-      const response = await fetchBooks(0, 0, "title_asc"); // Default sort order
+      const response = await fetchBooks(10, 1, "title_asc"); // Default pagination and sorting
       setBooks(response.books);
     } catch (error) {
       console.error("Error fetching books:", error);
@@ -38,7 +37,7 @@ const AdminBooksPage = () => {
       }
       setFormData({});
       setEditingId(null);
-      fetchAllBooks(); // Refetch books after adding/updating
+      fetchAllBooks(); // Refetch books
     } catch (error) {
       console.error("Error submitting book:", error);
     }
@@ -70,7 +69,7 @@ const AdminBooksPage = () => {
   };
 
   return (
-    <div className="container mt-4" style={{ maxHeight: "80vh", overflowY: "auto" }}>
+    <div className="container mt-4">
       <h2>Admin Book Management</h2>
 
       <form onSubmit={handleSubmit} className="mb-4">
@@ -116,41 +115,44 @@ const AdminBooksPage = () => {
         </button>
       </form>
 
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {books.map((b) => (
-            <tr key={b.bookId}>
-              <td>{b.title}</td>
-              <td>{b.author}</td>
-              <td>{b.category}</td>
-              <td>${b.price.toFixed(2)}</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-warning me-2"
-                  onClick={() => startEdit(b)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => openDeleteModal(b.bookId)}
-                >
-                  Delete
-                </button>
-              </td>
+      {/* Scrollable books list */}
+      <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th />
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {books.map((b) => (
+              <tr key={b.bookId}>
+                <td>{b.title}</td>
+                <td>{b.author}</td>
+                <td>{b.category}</td> {/* Displaying category */}
+                <td>${b.price.toFixed(2)}</td>
+                <td>
+                  <button
+                    className="btn btn-sm btn-warning me-2"
+                    onClick={() => startEdit(b)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => openDeleteModal(b.bookId)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {isDeleting && (
         <div className="modal">
@@ -174,4 +176,3 @@ const AdminBooksPage = () => {
 };
 
 export default AdminBooksPage;
-
