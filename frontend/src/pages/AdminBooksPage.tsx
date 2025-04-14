@@ -6,6 +6,7 @@ import {
   updateBook,
   deleteBook,
 } from "../api/Books.api"; // ✅ Import the API functions
+import { useNavigate } from "react-router-dom"; // For navigation back to regular books page
 
 const AdminBooksPage = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -14,7 +15,9 @@ const AdminBooksPage = () => {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [isDeleting, setIsDeleting] = useState(false); // Manage the modal visibility
 
-  // Fetching all books from the backend
+  const navigate = useNavigate(); // Hook for navigation to other pages
+
+  // Fetch all books from the backend
   const fetchAllBooks = async () => {
     try {
       const response = await fetchBooks(100, 1, "title_asc"); // Fetch all books, no pagination
@@ -24,7 +27,6 @@ const AdminBooksPage = () => {
     }
   };
 
-  // Trigger fetchAllBooks when the component mounts
   useEffect(() => {
     fetchAllBooks();
   }, []);
@@ -52,18 +54,24 @@ const AdminBooksPage = () => {
   };
 
   // Handle book deletion
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteBook(id); // Use the API to delete the book
-      setIsDeleting(false); // Close the modal
-      fetchAllBooks(); // Refetch books
-    } catch (error) {
-      console.error("Error deleting book:", error);
+  const handleDelete = async () => {
+    if (deletingId !== null) {
+      console.log("Deleting book with ID:", deletingId); // Add logging here to verify book ID
+
+      try {
+        await deleteBook(deletingId); // Use the API to delete the book
+        console.log(`Book with ID ${deletingId} deleted successfully.`); // Log successful deletion
+        setIsDeleting(false); // Close the modal
+        fetchAllBooks(); // Refetch books
+      } catch (error) {
+        console.error("Error deleting book:", error);
+      }
     }
   };
 
   // Open delete confirmation modal
   const openDeleteModal = (bookId: number) => {
+    console.log("Opening delete modal for book ID:", bookId); // Log when modal is opened
     setDeletingId(bookId);
     setIsDeleting(true);
   };
@@ -74,9 +82,19 @@ const AdminBooksPage = () => {
     setDeletingId(null);
   };
 
+  // Go back to the regular books page
+  const goBackToBooksPage = () => {
+    navigate("/books");
+  };
+
   return (
     <div className="container mt-4">
       <h2>Admin Book Management</h2>
+
+      {/* Button to go back to the regular books page */}
+      <button className="btn btn-secondary mb-4" onClick={goBackToBooksPage}>
+        Back to Books Page
+      </button>
 
       <form onSubmit={handleSubmit} className="mb-4">
         {[
@@ -160,23 +178,49 @@ const AdminBooksPage = () => {
         </table>
       </div>
 
+      {/* Delete Modal */}
       {isDeleting && (
-        <div className="modal">
-          <div className="modal-content">
-            <h4>Confirm Deletion</h4>
-            <p>Are you sure you want to delete this book?</p>
-            <button
-              className="btn btn-danger"
-              onClick={() => handleDelete(deletingId!)}
-            >
-              Yes, Delete
-            </button>
-            <button className="btn btn-secondary" onClick={closeDeleteModal}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
+  <div
+    className="modal-overlay"
+    style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 9999
+    }}
+  >
+    <div
+      className="modal-content"
+      style={{
+        backgroundColor: 'white',
+        padding: '30px',
+        borderRadius: '10px',
+        textAlign: 'center',
+        zIndex: 10000,
+        width: '100%',
+        maxWidth: '400px',
+      }}
+    >
+      <h4>Confirm Deletion</h4>
+      <p>Are you sure you want to delete this book?</p>
+      <div className="d-flex justify-content-between mt-4">
+        <button className="btn btn-danger" onClick={handleDelete}>
+          Yes, Delete
+        </button>
+        <button className="btn btn-secondary" onClick={closeDeleteModal}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

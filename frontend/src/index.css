@@ -71,3 +71,25 @@ body {
   background-color: #f9f9f9;
   color: #212529;
 }
+
+
+/* Modal styling */
+.modal {
+  position: fixed;
+  inset: 0; /* shorthand for top, right, bottom, left: 0 */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99999999; /* Make it higher than CartSummary */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Modal content */
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+}
