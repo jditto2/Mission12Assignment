@@ -13,7 +13,7 @@ const CartSummary = () => {
                 position: 'fixed',
                 top: '30px',
                 right: '20px',
-                background: '#af8f9fa',
+                background: 'white',
                 padding: '10px 15px',
                 borderRadius: '8px',
                 cursor: 'pointer',
