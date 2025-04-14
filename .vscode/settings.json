@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/76e584ab-e6e1-4e0d-9620-c5aa49affce1/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/Mission-13-Ditto-Backend",
+    "appService.deploySubpath": "backendAPI/backendAPI/publish"
+}
