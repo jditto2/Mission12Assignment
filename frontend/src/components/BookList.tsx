@@ -7,7 +7,6 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [books, setBooks] = useState<Book[]>([]);
   const [pageSize, setPageSize] = useState<number>(10);
   const [pageNum, setPageNum] = useState<number>(1);
-  const [totalItems, setTotalItems] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [sortBy, setSortBy] = useState<string>("title_asc");
 
@@ -15,7 +14,7 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchBooks = async () => {
       const categoryParams = selectedCategories
         .map((cat) => `projectTypes=${encodeURIComponent(cat)}`)
         .join("&");
@@ -25,7 +24,6 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
               selectedCategories.length ? `&${categoryParams}` : ""
             }`
           );
-          
 
       if (!response.ok) {
         console.error("Failed to fetch books:", response.statusText);
@@ -36,14 +34,13 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
 
       if (Array.isArray(data.books) && typeof data.totalNumBooks === "number") {
         setBooks(data.books);
-        setTotalItems(data.totalNumBooks);
-        setTotalPages(Math.ceil(data.totalNumBooks / pageSize));
+        setTotalPages(Math.ceil(data.totalNumBooks / pageSize)); // Adjust pagination
       } else {
         console.error("Unexpected backend format:", data);
       }
     };
 
-    fetchProjects();
+    fetchBooks();
   }, [pageSize, pageNum, sortBy, selectedCategories]);
 
   return (

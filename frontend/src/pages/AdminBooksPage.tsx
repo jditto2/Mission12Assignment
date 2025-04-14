@@ -29,15 +29,12 @@ const AdminBooksPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const method = editingId ? "PUT" : "POST";
-    const endpoint = editingId
-      ? `Update/${editingId}`
-      : `Add`; // Use the API to add or update books
-
     try {
-      const updatedBook = await (editingId
-        ? updateBook(editingId, formData as Book)
-        : addBook(formData as Book));
+      if (editingId) {
+        await updateBook(editingId, formData as Book);
+      } else {
+        await addBook(formData as Book);
+      }
       setFormData({});
       setEditingId(null);
       fetchAllBooks(); // Refetch books
