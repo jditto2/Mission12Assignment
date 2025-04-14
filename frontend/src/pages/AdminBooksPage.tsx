@@ -14,15 +14,17 @@ const AdminBooksPage = () => {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [isDeleting, setIsDeleting] = useState(false); // Manage the modal visibility
 
+  // Fetching all books from the backend
   const fetchAllBooks = async () => {
     try {
-      const response = await fetchBooks(10, 1, "title_asc"); // Default pagination and sorting
+      const response = await fetchBooks(100, 1, "title_asc"); // Fetch all books, no pagination
       setBooks(response.books);
     } catch (error) {
       console.error("Error fetching books:", error);
     }
   };
 
+  // Trigger fetchAllBooks when the component mounts
   useEffect(() => {
     fetchAllBooks();
   }, []);
@@ -31,23 +33,25 @@ const AdminBooksPage = () => {
     e.preventDefault();
     try {
       if (editingId) {
-        await updateBook(editingId, formData as Book);
+        await updateBook(editingId, formData as Book); // Update existing book
       } else {
-        await addBook(formData as Book);
+        await addBook(formData as Book); // Add new book
       }
       setFormData({});
       setEditingId(null);
-      fetchAllBooks(); // Refetch books
+      fetchAllBooks(); // Refetch books to show updated list
     } catch (error) {
       console.error("Error submitting book:", error);
     }
   };
 
+  // Start editing an existing book
   const startEdit = (book: Book) => {
     setFormData(book);
     setEditingId(book.bookId);
   };
 
+  // Handle book deletion
   const handleDelete = async (id: number) => {
     try {
       await deleteBook(id); // Use the API to delete the book
@@ -58,11 +62,13 @@ const AdminBooksPage = () => {
     }
   };
 
+  // Open delete confirmation modal
   const openDeleteModal = (bookId: number) => {
     setDeletingId(bookId);
     setIsDeleting(true);
   };
 
+  // Close the delete confirmation modal
   const closeDeleteModal = () => {
     setIsDeleting(false);
     setDeletingId(null);
@@ -115,7 +121,7 @@ const AdminBooksPage = () => {
         </button>
       </form>
 
-      {/* Scrollable books list */}
+      {/* Displaying all the books */}
       <div style={{ maxHeight: "500px", overflowY: "auto" }}>
         <table className="table table-striped">
           <thead>
