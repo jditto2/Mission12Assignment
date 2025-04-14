@@ -20,10 +20,11 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         .join("&");
 
         const response = await fetch(
-            `http://localhost:4000/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${
-              selectedCategories.length ? `&${categoryParams}` : ""
-            }`
-          );
+          `https://<your-deployed-api-url>/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${
+            selectedCategories.length ? `&${categoryParams}` : ""
+          }`
+        );
+        
 
       if (!response.ok) {
         console.error("Failed to fetch books:", response.statusText);
