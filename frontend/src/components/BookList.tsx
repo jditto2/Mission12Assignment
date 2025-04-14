@@ -62,6 +62,7 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                   <li><strong>Publisher:</strong> {b.publisher}</li>
                   <li><strong>ISBN:</strong> {b.isbn}</li>
                   <li><strong>Book Classification:</strong> {b.classification}</li>
+                  <li><strong>Category:</strong> {b.category}</li>
                   <li><strong>Book Page Count:</strong> {b.pageCount}</li>
                   <li>
                     <strong>Book Price:</strong>{" "}

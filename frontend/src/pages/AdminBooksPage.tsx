@@ -115,41 +115,44 @@ const AdminBooksPage = () => {
         </button>
       </form>
 
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {books.map((b) => (
-            <tr key={b.bookId}>
-              <td>{b.title}</td>
-              <td>{b.author}</td>
-              <td>{b.category}</td>
-              <td>${b.price.toFixed(2)}</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-warning me-2"
-                  onClick={() => startEdit(b)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => openDeleteModal(b.bookId)}
-                >
-                  Delete
-                </button>
-              </td>
+      {/* Scrollable books list */}
+      <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th />
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {books.map((b) => (
+              <tr key={b.bookId}>
+                <td>{b.title}</td>
+                <td>{b.author}</td>
+                <td>{b.category}</td> {/* Displaying category */}
+                <td>${b.price.toFixed(2)}</td>
+                <td>
+                  <button
+                    className="btn btn-sm btn-warning me-2"
+                    onClick={() => startEdit(b)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => openDeleteModal(b.bookId)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {isDeleting && (
         <div className="modal">
