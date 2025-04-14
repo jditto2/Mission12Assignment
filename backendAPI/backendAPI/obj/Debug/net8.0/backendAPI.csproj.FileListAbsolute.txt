@@ -1,6 +1,5 @@
 /Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/bin/Debug/net8.0/appsettings.json
 /Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/bin/Debug/net8.0/backendAPI.staticwebassets.endpoints.json
-/Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/bin/Debug/net8.0/Bookstore.sqlite
 /Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/bin/Debug/net8.0/backendAPI
 /Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/bin/Debug/net8.0/backendAPI.deps.json
 /Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/bin/Debug/net8.0/backendAPI.runtimeconfig.json
@@ -135,3 +134,4 @@
 /Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/obj/Debug/net8.0/backendAPI.pdb
 /Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/obj/Debug/net8.0/backendAPI.genruntimeconfig.cache
 /Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/obj/Debug/net8.0/ref/backendAPI.dll
+/Users/joshditto/Desktop/Mission 12 Assignment/backendAPI/backendAPI/bin/Debug/net8.0/Bookstore.sqlite

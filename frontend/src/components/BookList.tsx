@@ -20,11 +20,12 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         .map((cat) => `projectTypes=${encodeURIComponent(cat)}`)
         .join("&");
 
-      const response = await fetch(
-        `https://localhost:5000/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${
-          selectedCategories.length ? `&${categoryParams}` : ""
-        }`
-      );
+        const response = await fetch(
+            `http://localhost:4000/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${
+              selectedCategories.length ? `&${categoryParams}` : ""
+            }`
+          );
+          
 
       if (!response.ok) {
         console.error("Failed to fetch books:", response.statusText);
