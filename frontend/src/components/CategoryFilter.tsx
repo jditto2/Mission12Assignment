@@ -18,7 +18,7 @@ function CategoryFilter ({
         try {
 
             const response = await fetch(
-                `https://<your-deployed-api-url>/api/Books/GetBookCategories`
+                `https://ambitious-wave-035cc7a1e.6.azurestaticapps.net/api/Books/GetBookCategories`
               );
               
 

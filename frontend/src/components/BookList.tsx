@@ -20,7 +20,7 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         .join("&");
 
         const response = await fetch(
-          `https://<your-deployed-api-url>/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${
+          `https://ambitious-wave-035cc7a1e.6.azurestaticapps.net/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${
             selectedCategories.length ? `&${categoryParams}` : ""
           }`
         );
