@@ -20,7 +20,7 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         .join("&");
 
         const response = await fetch(
-          `https://ambitious-wave-035cc7a1e.6.azurestaticapps.net/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${selectedCategories.length ? `&${categoryParams}` : ""}`
+          `https://mission-13-ditto-backend.azurewebsites.net/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}${selectedCategories.length ? `&${categoryParams}` : ""}`
         );
         
         
@@ -30,8 +30,10 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         return;
       }
 
-      const data = await response.json();
-      console.log("Fetched books data:", data);  // Log the data for debugging
+      const textResponse = await response.text();  // Get the raw response as text
+      console.log("Raw response:", textResponse);  // Log the raw response to see what is returned
+      const data = JSON.parse(textResponse);  // Parse the response as JSON manually
+
 
 
       if (Array.isArray(data.books) && typeof data.totalNumBooks === "number") {

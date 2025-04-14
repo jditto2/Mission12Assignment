@@ -18,14 +18,16 @@ function CategoryFilter ({
         try {
 
             const response = await fetch(
-                `https://ambitious-wave-035cc7a1e.6.azurestaticapps.net/api/Books/GetBookCategories`
+                `https://mission-13-ditto-backend.azurewebsites.net/api/Books/GetBookCategories`
               );              
               
 
 
     
-                const data = await response.json();
-                console.log(`Fetched categories:`, data);
+              const textResponse = await response.text();  // Get the raw response as text
+              console.log("Raw response:", textResponse);  // Log the raw response to see what is returned
+              const data = JSON.parse(textResponse);  // Parse the response as JSON manually
+              
                 setCategories(data)
             }catch (error){
             
